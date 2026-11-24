@@ -12,7 +12,7 @@ Documento de apoyo para la entrega del taller de mecanismos de autorización en 
 | Policies | 20% | CRUD y Policy parciales; se impedía consultar el propio registro inactivo | Policy utilizada en las cinco acciones; propiedad sin acceso a registros ajenos; pruebas de activos/inactivos, CRUD, validación e identidad propietaria |
 | RBAC con Spatie | 15% | Trait, configuración y migración existentes; sin roles ni permisos sembrados | `RolesYPermisosSeeder`, cuatro permisos y cuatro roles; middleware de creación; pruebas de permisos y denegaciones |
 | ABAC | 15% | Carrera y sede presentes en modelos, migraciones y Policy; sin datos ni pruebas | Fixtures de cuatro combinaciones; actualización limitada por permiso, carrera y sede para profesor/coordinador; pruebas por HTTP y Feature |
-| Postman y pruebas automatizadas | 10% | Únicamente las pruebas predeterminadas; ninguna colección real | Colección de 53 solicitudes y suite `AutorizacionEstudiantesTest`; evidencias en `evidencias/` |
+| Postman y pruebas automatizadas | 10% | Únicamente las pruebas predeterminadas; ninguna colección real | Colección de 53 solicitudes y suite `AutorizacionEstudiantesTest`; evidencias en `docs/evidencias/` |
 | Reflexión y explicación técnica | 5% | README anunciaba documentos inexistentes | Respuestas de actividades, explicación de decisiones y guía de uso en README |
 
 Esta matriz vincula los criterios con código y pruebas; no asigna una nota, que corresponde a la evaluación docente.
@@ -117,8 +117,10 @@ Evidencia: `test_abac_carrera_y_sede` verifica ambas funciones profesionales y l
 2. Modelos, migraciones, controladores, Gates y Policies: directorios `app/`, `database/migrations/` y `routes/`.
 3. Roles, permisos y datos: `database/seeders/` con llamadas en `DatabaseSeeder`.
 4. Colección: `postman/API-Academica.postman_collection.json`.
-5. Evidencias: resultados de ejecución en `evidencias/`.
+5. Evidencias: [informe y resultados de ejecución](evidencias/).
 6. Pruebas Feature: `tests/Feature/AutorizacionEstudiantesTest.php`.
 7. Reflexión: este documento.
+
+Volver a la [guía del proyecto](../README.md).
 
 No incluir `vendor`, `.env`, la base de datos local ni tokens personales al entregar. La colección guarda tokens solo durante su ejecución: no exportar sus variables después de probarla.
