@@ -19,10 +19,7 @@ class EstudiantePolicy
         }
 
         if ($user->hasRole('estudiante')) {
-            if (! $estudiante->activo) {
-                return false;
-            }
-
+            // La propiedad se exige tanto para registros activos como inactivos.
             return $estudiante->user_id === $user->id;
         }
 

@@ -1,0 +1,15 @@
+
+  GET|HEAD  api/admin/dashboard ............................ routes/api.php:16
+  GET|HEAD  api/estudiantes ................... Api\EstudianteController@index
+  POST      api/estudiantes ................... Api\EstudianteController@store
+  GET|HEAD  api/estudiantes/{estudiante} ....... Api\EstudianteController@show
+  PUT       api/estudiantes/{estudiante} ..... Api\EstudianteController@update
+  PATCH     api/estudiantes/{estudiante} ..... Api\EstudianteController@update
+  DELETE    api/estudiantes/{estudiante} .... Api\EstudianteController@destroy
+  POST      api/login ............................... Api\AuthController@login
+  POST      api/logout ............................. Api\AuthController@logout
+  GET|HEAD  api/me ..................................... Api\AuthController@me
+  GET|HEAD  api/profesor/dashboard ......................... routes/api.php:25
+  POST      api/register ......................... Api\AuthController@register
+
+                                                           Showing [12] routes

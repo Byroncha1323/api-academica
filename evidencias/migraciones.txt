@@ -1,0 +1,11 @@
+
+  Migration name .............................................. Batch / Status
+  0001_01_01_000000_create_users_table ............................... [1] Ran
+  0001_01_01_000001_create_cache_table ............................... [1] Ran
+  0001_01_01_000002_create_jobs_table ................................ [1] Ran
+  2026_11_24_003347_create_personal_access_tokens_table .............. [1] Ran
+  2026_11_24_003402_create_permission_tables ......................... [1] Ran
+  2026_11_24_003501_create_carreras_table ............................ [1] Ran
+  2026_11_24_003502_create_sedes_table ............................... [1] Ran
+  2026_11_24_003503_add_carrera_and_sede_to_users_table .............. [1] Ran
+  2026_11_24_003504_create_estudiantes_table ......................... [1] Ran

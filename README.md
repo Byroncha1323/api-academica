@@ -1,67 +1,72 @@
-# API Académica - Taller de Mecanismos de Autorización en Laravel 13
+# API Académica — Taller de autorización en Laravel 13
 
-**Curso:** Tecnologías y Sistemas Web III (ITI-621)  
-**Tema:** Seguridad y control de acceso en servicios web (Sanctum, Gates, Policies, RBAC y ABAC)  
-**Tecnologías:** Laravel 13, PHP 8.3+, MySQL (LocalWP) / SQLite, Laravel Sanctum, Spatie Laravel Permission y Bruno.
+API REST del taller ITI-621 con Sanctum, Gates, Policies, RBAC (Spatie) y ABAC por propiedad, carrera y sede. Incluye las actividades 1 a 5 y los entregables de la rúbrica. No requiere Node.js para ejecutar la API.
 
----
+## Instalación local
 
-## Estructura de Entregables del Proyecto
+Requiere PHP compatible con `composer.lock` (PHP 8.3 o superior, según las dependencias instaladas), Composer y las extensiones de SQLite. La verificación de este repositorio se realizó con PHP 8.5.12 y Laravel 13.43.0.
 
-- `app/Models/`: Modelos `User` (con `HasApiTokens` y `HasRoles`), `Carrera`, `Sede` y `Estudiante`.
-- `app/Http/Controllers/Api/`:
-  - `AuthController.php`: Registro público seguro (`register`), inicio de sesión (`login`), perfil con relaciones/roles/permisos (`me`) y revocación de token (`logout`).
-  - `EstudianteController.php`: CRUD completo protegido mediante `Gate::authorize()` y validación que impide cambiar `user_id`.
-- `app/Providers/AppServiceProvider.php`: Definición de los Gates `access-admin-dashboard` y `access-professor-dashboard`.
-- `app/Policies/EstudiantePolicy.php`: Reglas RBAC y ABAC (propiedad del registro, bloqueo de registros inactivos ajenos, validación combinada de `carrera_id` y `sede_id`).
-- `bootstrap/app.php`: Registro de los alias de middleware de Spatie (`permission`, `role`, `role_or_permission`).
-- `database/migrations/`: Migraciones de `carreras`, `sedes`, llaves foráneas en `users`, `estudiantes`, `personal_access_tokens` y tablas de Spatie Permission.
-- `database/seeders/`:
-  - `RolesYPermisosSeeder.php`: Creación de permisos (`estudiantes.ver`, `estudiantes.crear`, `estudiantes.editar`, `estudiantes.eliminar`) y roles (`administrador`, `profesor`, `coordinador`, `estudiante`).
-  - `DatosPruebaSeeder.php`: Carreras (`ITI`, `ISW`), sedes (`SC`, `CEN`) y usuarios de prueba para todos los escenarios.
-- `routes/api.php`: Rutas explícitas bajo `auth:sanctum` y middleware `permission:estudiantes.crear`.
-- `tests/Feature/AutorizacionEstudiantesTest.php`: Suite de 8 pruebas automatizadas de Feature verificando Gates, Policies, RBAC y los 4 escenarios ABAC.
-- `bruno/`: Colección nativa de Bruno (`.bru`) organizada en 4 carpetas (`1-Auth`, `2-Dashboards-Gates`, `3-Estudiantes-CRUD`, `4-Casos-Error-401-403`) y entornos `LocalWP` / `Dominio-LocalWP`.
-- `bruno-collection-api-academica.json`: Archivo JSON exportado de la colección de Bruno.
-- `ENTREGABLE_REFLEXION_Y_ACTIVIDADES.md`: Desarrollo de las actividades 1 a 5, tablas de casos de prueba, evidencias de ejecución y respuestas de reflexión de seguridad.
+```bash
+composer install
+cp .env.example .env
+php artisan key:generate
+php -r "file_exists('database/database.sqlite') || touch('database/database.sqlite');"
+php artisan migrate --seed
+php artisan serve --port=8001
+```
 
----
+Base URL: `http://127.0.0.1:8001/api`. `.env.example` utiliza SQLite sin credenciales. `migrate --seed` conserva los datos existentes; los seeders se pueden repetir.
 
-## Instalación y Ejecución Rápida
+## Usuarios de laboratorio
 
-1. Instalar dependencias de Composer:
-   ```bash
-   composer install
-   ```
-2. Copiar el archivo de entorno y generar la clave de aplicación:
-   ```bash
-   cp .env.example .env
-   php artisan key:generate
-   ```
-3. Ejecutar migraciones y sembrar roles, permisos y datos de prueba:
-   ```bash
-   php artisan migrate:fresh --seed
-   ```
-4. Iniciar el servidor de desarrollo:
-   ```bash
-   php artisan serve
-   ```
-5. Ejecutar las pruebas automatizadas:
-   ```bash
-   php artisan test --filter=AutorizacionEstudiantesTest
-   ```
-
----
-
-## Credenciales de Prueba (Contraseña para todos: `Password123!`)
+Contraseña común: `Password123!`. Estas cuentas pertenecen al laboratorio local.
 
 | Correo | Rol | Carrera | Sede |
 |---|---|---|---|
-| `admin@academica.test` | `administrador` | N/A | N/A |
-| `profesor.iti@academica.test` | `profesor` | `ITI` | `SC` (San Carlos) |
-| `profesor.isw@academica.test` | `profesor` | `ISW` | `CEN` (Central) |
-| `coordinador.iti@academica.test` | `coordinador` | `ITI` | `SC` (San Carlos) |
-| `estudiante1@academica.test` | `estudiante` (Ana - Activa) | `ITI` | `SC` (San Carlos) |
-| `estudiante2@academica.test` | `estudiante` (Luis - Activo) | `ISW` | `CEN` (Central) |
-| `estudiante3@academica.test` | `estudiante` (María - Activa) | `ITI` | `CEN` (Central) |
-| `estudiante4@academica.test` | `estudiante` (Pedro - Inactivo) | `ISW` | `SC` (San Carlos) |
+| admin@academica.test | administrador | — | — |
+| profesor.iti@academica.test | profesor | ITI | SC |
+| profesor.isw@academica.test | profesor | ISW | CEN |
+| coordinador.iti@academica.test | coordinador | ITI | SC |
+| estudiante1@academica.test | estudiante (Ana, activa) | ITI | SC |
+| estudiante2@academica.test | estudiante (Luis, activo) | ISW | CEN |
+| estudiante3@academica.test | estudiante (María, activa) | ITI | CEN |
+| estudiante4@academica.test | estudiante (Pedro, inactivo) | ISW | SC |
+
+## Endpoints
+
+| Método | Ruta bajo `/api` | Control |
+|---|---|---|
+| POST | /register | Público; cuenta sin rol ni permisos asignados por el cliente |
+| POST | /login | Público; devuelve token Sanctum |
+| GET | /me | Token; usuario, carrera, sede, roles y permisos directos |
+| POST | /logout | Token; revoca únicamente el token actual |
+| GET | /admin/dashboard | Gate `access-admin-dashboard` |
+| GET | /profesor/dashboard | Gate `access-professor-dashboard` |
+| GET | /estudiantes | Policy `viewAny`, permiso `estudiantes.ver`, paginación de 10 |
+| POST | /estudiantes | Middleware `permission:estudiantes.crear` y Policy `create` |
+| GET | /estudiantes/{estudiante} | Policy `view` |
+| PUT/PATCH | /estudiantes/{estudiante} | Policy `update`, permiso y ABAC |
+| DELETE | /estudiantes/{estudiante} | Policy `delete` |
+
+Las rutas protegidas requieren `Accept: application/json` y `Authorization: Bearer <token>`. No hay rutas CRUD duplicadas. En `/me`, los permisos heredados pertenecen a los roles; `permissions` contiene los permisos asignados directamente al usuario, como en el ejemplo del taller.
+
+El listado general sigue `viewAny` del documento: los cuatro roles sembrados tienen `estudiantes.ver`. El detalle exige propiedad para estudiantes y misma carrera para profesores/coordinadores. La actualización de profesores y coordinadores exige permiso, misma carrera y misma sede; el administrador tiene acceso general con sus permisos. Un estudiante puede ver su registro propio aunque esté inactivo, y nunca un registro ajeno.
+
+El alta de estudiantes requiere `user_id`, `carrera_id`, `sede_id`, `cedula`, `nombre`, `apellido` y `correo_institucional`; `activo` es opcional. Los IDs deben existir. La actualización no acepta cambios de `user_id`.
+
+## Verificación y entregables
+
+```bash
+php artisan test
+php artisan route:list --path=api
+vendor/bin/pint --dirty --test
+```
+
+Las pruebas usan SQLite en memoria y no modifican la base local.
+
+- [Colección Postman](postman/API-Academica.postman_collection.json): importar y ejecutar en orden con Collection Runner. Incluye 53 solicitudes con aserciones, obtiene los IDs y tokens durante la ejecución y cubre 401/403, ambos Gates, CRUD, RBAC y los cuatro escenarios ABAC. `base_url` se puede cambiar en las variables de colección.
+- La colección se puede ejecutar por terminal: `npx --yes newman run postman/API-Academica.postman_collection.json`. Necesita el servidor local y los seeders. Crea una cuenta sin rol para probar registro y un estudiante temporal que elimina al terminar; actualiza el nombre de Ana y restaura el estado activo de María. Usar la base de práctica.
+- [Actividades, reflexión y revisión de rúbrica](ENTREGABLE_REFLEXION_Y_ACTIVIDADES.md).
+- [Evidencias de ejecución](evidencias/): resultados reproducibles de las pruebas y solicitudes, sin tokens personales.
+
+Para entregar, incluir el código y los entregables versionados. Excluir `vendor`, `.env`, la base SQLite y tokens personales; ya están ignorados por Git. No se necesita configurar frontend ni servicios externos.
