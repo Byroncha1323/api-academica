@@ -1,7 +1,9 @@
-﻿<?php
+<?php
 
 namespace App\Providers;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,6 +15,12 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Pendiente: Definir Gates access-admin-dashboard y access-professor-dashboard (Persona 3)
+        Gate::define('access-admin-dashboard', function (User $user): bool {
+            return $user->hasRole('administrador');
+        });
+
+        Gate::define('access-professor-dashboard', function (User $user): bool {
+            return $user->hasRole('profesor');
+        });
     }
 }
