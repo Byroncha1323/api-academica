@@ -267,6 +267,48 @@ Deben aparecer **12 rutas**. Las diferencias de método HTTP (`GET`, `POST`, `PU
 
 Los reportes guardados corresponden a la verificación original. Para comprobar tu instalación actual, ejecuta los pasos de esta guía.
 
+## Discusión y reflexión de seguridad
+
+### Discusión sobre ABAC (Sección 19.2)
+
+1. **¿Qué sucedería si el profesor cambia de carrera?**
+   Al actualizarse su `carrera_id` en la base de datos, el cambio entra en vigor de forma inmediata en la siguiente petición porque `EstudiantePolicy` evalúa los atributos dinámicamente en tiempo de ejecución; el profesor pierde automáticamente acceso sobre los estudiantes de su carrera anterior y pasa a tener autorización únicamente sobre los de la nueva carrera (siempre que coincida también su `sede_id`).
+
+2. **¿Qué sucede si el estudiante cambia de carrera?**
+   Los profesores y coordinadores de su carrera anterior pierden inmediatamente el permiso para consultarlo o editarlo (recibiendo `403 Forbidden`), mientras que los profesores y coordinadores de la nueva carrera (y misma sede) pasan a estar autorizados para gestionarlo.
+
+3. **¿Por qué no basta con verificar que el usuario tenga el rol `profesor`?**
+   Porque el rol solo define su cargo general dentro del sistema, pero no delimita su alcance académico. Sin validar atributos como `carrera_id` y `sede_id`, cualquier profesor podría modificar expedientes de carreras o sedes a las que no pertenece, rompiendo el principio de mínimo privilegio.
+
+4. **¿Qué otros atributos podrían incorporarse?**
+   Además de `carrera_id` y `sede_id`, se podrían evaluar el período o ciclo lectivo activo, si el profesor imparte un curso en el que el estudiante está matriculado, el estado de matrícula (`activo`), o restricciones contextuales como horario laboral y dirección IP institucional.
+
+### Reflexión de seguridad (Actividad 5)
+
+1. **¿Cuál es la diferencia entre autenticación y autorización?**
+   La **autenticación** verifica la identidad del usuario mediante credenciales o un token (implementada con Laravel Sanctum); la **autorización** determina qué acciones puede realizar y a qué recursos puede acceder ese usuario ya identificado (implementada con Gates, Policies, RBAC y ABAC).
+
+2. **¿En qué casos utilizaría Gates?**
+   En reglas de acceso generales o rutas administrativas que no dependen de un modelo o registro específico de la base de datos, como restringir la entrada a `/api/admin/dashboard` o `/api/profesor/dashboard` según el rol.
+
+3. **¿Por qué las Policies son adecuadas para operaciones CRUD?**
+   Porque centralizan y organizan todas las reglas de autorización de un mismo modelo (`Estudiante`) en métodos estándar (`viewAny`, `view`, `create`, `update`, `delete`), permitiendo recibir al usuario autenticado junto con la instancia exacta del registro que se desea consultar o modificar.
+
+4. **¿Cuál es la diferencia entre RBAC y ABAC?**
+   **RBAC** (*Control de Acceso Basado en Roles*) asigna permisos según el rol del usuario (por ejemplo, `profesor` posee `estudiantes.editar`). **ABAC** (*Control de Acceso Basado en Atributos*) evalúa propiedades dinámicas del usuario, del recurso y del contexto (como verificar que `user.carrera_id === estudiante.carrera_id`, `user.sede_id === estudiante.sede_id` y que el registro esté `activo`).
+
+5. **¿Por qué un permiso `estudiantes.editar` no debería permitir modificar cualquier estudiante?**
+   Porque tener la capacidad funcional de editar no implica tener jurisdicción sobre toda la institución; combinar el permiso RBAC con condiciones ABAC evita que un profesor o coordinador altere registros de estudiantes de otras carreras o sedes.
+
+6. **¿Qué riesgo existe si el registro público permite enviar el rol del usuario?**
+   Se genera una vulnerabilidad de **escalada de privilegios**: cualquier persona externa podría registrarse enviando `"role": "administrador"` en la petición y obtener control total para crear, modificar o eliminar registros del sistema.
+
+7. **¿Por qué la autorización debe realizarse en el backend?**
+   Porque cualquier validación hecha únicamente en el frontend o cliente puede ser eludida fácilmente enviando peticiones HTTP directas con herramientas como Bruno, Postman o cURL; el servidor es la única capa confiable que protege directamente la base de datos y las reglas de negocio.
+
+8. **¿Qué diferencia existe entre HTTP `401` y HTTP `403`?**
+   `401 Unauthorized` indica que la solicitud no está autenticada (no se envió token Bearer, es inválido o fue revocado al cerrar sesión). `403 Forbidden` indica que el usuario sí está autenticado, pero el servidor rechaza la operación porque no tiene los permisos, roles o atributos necesarios.
+   
 ## Lista antes de entregar
 
 - [ ] `php artisan test` termina con 42 pruebas aprobadas.
