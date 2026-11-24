@@ -1,0 +1,19 @@
+meta {
+  name: 01 - Sin token - 401
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{base_url}}/estudiantes
+  body: none
+  auth: none
+}
+
+headers {
+  Accept: application/json
+}
+
+tests {
+  test("HTTP 401", () => expect(res.status).to.equal(401));
+}

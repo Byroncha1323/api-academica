@@ -8,7 +8,7 @@ Al abrir `http://127.0.0.1:8001` en el navegador se muestra la bienvenida de Lar
 
 - **Primera vez con el proyecto:** sigue [Instalación](#1-instalación-solo-la-primera-vez).
 - **Ya está instalado:** sigue [Iniciar la API](#2-iniciar-la-api) y [Comprobar todo](#3-comprobar-todo-desde-la-terminal).
-- **Prefieres Postman:** sigue [Probar con Postman](#4-probar-con-postman-opcional).
+- **Prefieres Bruno:** sigue [Probar con Bruno](#4-probar-con-bruno-opcional).
 - **Aparece un error:** consulta [Problemas frecuentes](#problemas-frecuentes).
 - **Quieres revisar la entrega:** abre las [actividades y rúbrica](docs/actividades-y-rubrica.md) y las [evidencias](docs/evidencias/).
 
@@ -58,13 +58,13 @@ Debes ver un mensaje como:
 Server running on [http://127.0.0.1:8001]
 ```
 
-**Deja esta terminal abierta y el comando ejecutándose.** Abre una segunda terminal para las pruebas y entra también a la carpeta del proyecto. Si detienes el servidor con `Ctrl+C`, tendrás que iniciarlo de nuevo para usar Newman o Postman.
+**Deja esta terminal abierta y el comando ejecutándose.** Abre una segunda terminal para las pruebas y entra también a la carpeta del proyecto. Si detienes el servidor con `Ctrl+C`, tendrás que iniciarlo de nuevo para usar Bruno CLI o Bruno.
 
 La dirección que usa la colección es `http://127.0.0.1:8001/api`.
 
 ## 3. Comprobar todo desde la terminal
 
-Son dos comprobaciones complementarias: Laravel ejecuta las pruebas automatizadas del código y Newman envía las solicitudes de la colección Postman al servidor real.
+Son dos comprobaciones complementarias: Laravel prueba el código y Bruno CLI envía las solicitudes de la colección al servidor real.
 
 ### A. Ejecutar las pruebas de Laravel
 
@@ -91,17 +91,19 @@ php artisan test --filter=AutorizacionEstudiantesTest
 Con el servidor del paso 2 funcionando, ejecuta en la segunda terminal:
 
 ```bash
-npx --yes newman run postman/API-Academica.postman_collection.json
+cd bruno
+npx --yes @usebruno/cli@4.3.0 run --env Local -r
 ```
 
-La primera ejecución puede necesitar Internet para descargar Newman. No necesitas abrir Postman ni copiar tokens: la colección inicia sesión, guarda temporalmente los tokens y obtiene los IDs de los registros automáticamente.
+La primera ejecución puede necesitar Internet para descargar Bruno CLI. No necesitas abrir Bruno ni copiar tokens: la colección inicia sesión, guarda temporalmente los tokens y obtiene los IDs de los registros automáticamente.
 
-Al finalizar, busca la tabla de resultados:
+Al finalizar, el resumen debe indicar **53 solicitudes correctas y 55 tests aprobados**, sin errores ni tests fallidos. Los tests son las comprobaciones escritas en los archivos `.bru`. Es normal que el resumen muestre `Assertions: 0/0`: las 55 comprobaciones están en el apartado `Tests`, que debe mostrar `55/55`.
 
-| Fila | `executed` esperado | `failed` esperado |
-|---|---:|---:|
-| `requests` (solicitudes) | 53 | 0 |
-| `assertions` (comprobaciones) | 55 | 0 |
+El comando anterior te deja dentro de `bruno/`. Para volver a la raíz antes de ejecutar comandos de Laravel:
+
+```bash
+cd ..
+```
 
 **La colección pasó si no hay fallos.** Ver `401`, `403` o `404` junto a una solicitud puede ser correcto: varias pruebas esperan precisamente esas respuestas para comprobar las restricciones. Debe aparecer una marca `✓` en la comprobación correspondiente.
 
@@ -126,16 +128,16 @@ La colección trabaja sobre la base local de práctica. Cada ejecución crea una
 
 Las pruebas de ABAC cubren las cuatro combinaciones: misma carrera/misma sede, misma carrera/otra sede, otra carrera/misma sede y otra carrera/otra sede. Solo se permite modificar en la primera combinación.
 
-## 4. Probar con Postman (opcional)
+## 4. Probar con Bruno (opcional)
 
 Esta alternativa ejecuta la misma colección con una aplicación gráfica.
 
-1. Abre Postman y selecciona **Import**.
-2. Importa [API-Academica.postman_collection.json](postman/API-Academica.postman_collection.json), ubicado dentro de `postman/`.
+1. Abre la aplicación Bruno y selecciona **Open Collection** (abrir colección).
+2. Elige la carpeta [bruno/](bruno/) del repositorio; contiene `bruno.json`, que identifica la colección. No debes importar un archivo JSON de solicitudes.
 3. Abre la colección **API Académica - Autorización Laravel 13**.
-4. En sus variables, comprueba que `base_url` sea `http://127.0.0.1:8001/api`.
-5. Selecciona **Run collection**, marca todas las solicitudes y ejecútalas en el orden original.
-6. Revisa que las comprobaciones pasen. El servidor debe seguir ejecutándose durante toda la prueba.
+4. Selecciona el entorno **Local**. Su variable `base_url` debe ser `http://127.0.0.1:8001/api`.
+5. Usa el ejecutor de la colección (**Run Collection**) para ejecutar las siete carpetas en el orden numerado. Mantén la ejecución secuencial: los casos siguientes usan los tokens e IDs obtenidos por los anteriores.
+6. Revisa que las 53 solicitudes y los 55 tests pasen. El servidor debe seguir ejecutándose durante toda la prueba.
 
 Si quieres realizar una solicitud manual, empieza con:
 
@@ -143,7 +145,7 @@ Si quieres realizar una solicitud manual, empieza con:
 POST http://127.0.0.1:8001/api/login
 ```
 
-Selecciona cuerpo **raw → JSON** y envía:
+Selecciona cuerpo **JSON** y envía:
 
 ```json
 {
@@ -152,7 +154,7 @@ Selecciona cuerpo **raw → JSON** y envía:
 }
 ```
 
-Copia el campo `token` de la respuesta. Crea una solicitud `GET http://127.0.0.1:8001/api/me`, selecciona **Authorization → Bearer Token** y pega ese token. Agrega el encabezado `Accept: application/json`. La respuesta debe ser `200` y contener el usuario administrador.
+Copia el campo `token` de la respuesta. Crea una solicitud `GET http://127.0.0.1:8001/api/me`, selecciona autenticación **Bearer Token** y pega ese token. Agrega el encabezado `Accept: application/json`. La respuesta debe ser `200` y contener el usuario administrador.
 
 ## Cómo interpretar las respuestas
 
@@ -170,17 +172,22 @@ Copia el campo `token` de la respuesta. Crea una solicitud `GET http://127.0.0.1
 | Mensaje o situación | Qué hacer |
 |---|---|
 | `ECONNREFUSED 127.0.0.1:8001` | Inicia `php artisan serve --host=127.0.0.1 --port=8001` en otra terminal y déjala abierta. Después repite la colección. |
-| Laravel muestra otro puerto | Usa la dirección que aparece en la terminal. Cambia la variable `base_url` en el archivo de la colección o en Postman para que coincida. |
+| Laravel muestra otro puerto | Usa la dirección que aparece en la terminal. Cambia la variable `base_url` en `bruno/environments/Local.bru` o en el entorno Local de Bruno para que coincida. |
 | Puerto `8001` ocupado | Si ya hay una instancia de esta API funcionando allí, úsala. Si es otro programa, inicia Laravel con `--port=8002` y adapta `base_url`. |
-| Pantalla de bienvenida de Laravel | Es el inicio normal del proyecto. Continúa con las pruebas de Laravel, Newman o Postman. |
+| Pantalla de bienvenida de Laravel | Es el inicio normal del proyecto. Continúa con las pruebas de Laravel, Bruno CLI o Bruno. |
 | `vendor/autoload.php` no existe | Ejecuta `composer install` desde la raíz del proyecto. |
 | Falta la clave de aplicación | En la instalación inicial, crea `.env` y ejecuta `php artisan key:generate`. |
 | SQLite no existe o faltan tablas | Crea el archivo SQLite y ejecuta `php artisan config:clear` seguido de `php artisan migrate --seed`, como en el paso 1. |
 | Los usuarios de prueba no pueden iniciar sesión | Ejecuta `php artisan db:seed` y usa las credenciales de laboratorio de esta guía. El seeder conserva las contraseñas de cuentas que ya existían. |
 | `php`, `composer` o `npx` no se reconoce | Instala la herramienta correspondiente y asegúrate de que esté disponible en la terminal. `npx` viene con npm. |
-| Advertencia de Node sobre `fs.F_OK` | Revisa el resumen de Newman: esa advertencia de una dependencia no implica que las comprobaciones hayan fallado. |
 
-Si eliges otro puerto, edita el valor de `base_url` al principio de `postman/API-Academica.postman_collection.json`. Por ejemplo: `http://127.0.0.1:8002/api`. Después ejecuta nuevamente Newman. En Postman cambia esa variable desde la colección.
+Si eliges otro puerto, edita `base_url` en `bruno/environments/Local.bru`. También puedes sobrescribirlo para una ejecución, desde la carpeta `bruno/`:
+
+```bash
+npx --yes @usebruno/cli@4.3.0 run --env Local -r --env-var "base_url=http://127.0.0.1:8002/api"
+```
+
+En la aplicación Bruno, cambia esa variable desde el entorno Local.
 
 No uses `migrate:fresh` para resolver errores: elimina las tablas y sus datos. Las instrucciones de esta guía utilizan `migrate --seed`.
 
@@ -233,7 +240,7 @@ El alta de estudiantes requiere `user_id`, `carrera_id`, `sede_id`, `cedula`, `n
 | `database/migrations/` | Estructura de las tablas |
 | `database/seeders/` | Roles, permisos y datos del laboratorio |
 | `tests/Feature/` | Pruebas de integración y autorización |
-| `postman/` | Colección para probar la API |
+| `bruno/` | Colección para probar la API |
 | [docs/actividades-y-rubrica.md](docs/actividades-y-rubrica.md) | Actividades, reflexión y revisión de requisitos |
 | [docs/evidencias/](docs/evidencias/) | Informe de verificación y resultados de ejecución |
 
@@ -252,7 +259,7 @@ Deben aparecer **12 rutas**. Las diferencias de método HTTP (`GET`, `POST`, `PU
 - [Actividades, reflexión y rúbrica](docs/actividades-y-rubrica.md): explica las decisiones y relaciona cada criterio con el código y sus pruebas.
 - [Informe de verificación](docs/evidencias/README.md): resume cómo se comprobó el flujo completo.
 - [Resultado de pruebas automatizadas](docs/evidencias/pruebas-automatizadas.txt).
-- [Resultado de la colección con Newman](docs/evidencias/postman-newman.txt).
+- [Resultado de la colección con Bruno CLI](docs/evidencias/bruno-cli.txt).
 - [Migraciones ejecutadas](docs/evidencias/migraciones.txt).
 - [Listado de rutas](docs/evidencias/rutas-api.txt).
 
@@ -261,9 +268,11 @@ Los reportes guardados corresponden a la verificación original. Para comprobar 
 ## Lista antes de entregar
 
 - [ ] `php artisan test` termina con 42 pruebas aprobadas.
-- [ ] Newman o Postman terminan con 53 solicitudes, 55 comprobaciones y cero fallos.
+- [ ] Bruno CLI o Bruno terminan con 53 solicitudes, 55 tests y cero fallos.
 - [ ] Se revisaron las actividades y las respuestas individuales de reflexión.
 - [ ] Se incluyen el código, la colección, la documentación y las evidencias.
 - [ ] Se excluyen `vendor/`, `.env`, la base SQLite y tokens personales; Git ya ignora esos archivos locales.
 
 Al terminar las pruebas puedes detener el servidor con `Ctrl+C` en la terminal donde se está ejecutando.
+
+La sintaxis de scripts y las opciones de ejecución siguen la [referencia de JavaScript de Bruno](https://docs.usebruno.com/testing/script/javascript-reference) y la [guía oficial del CLI](https://docs.usebruno.com/bru-cli/run/options).

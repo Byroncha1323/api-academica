@@ -1,0 +1,23 @@
+meta {
+  name: Detalle estudiante 1 con estudiante
+  type: http
+  seq: 20
+}
+
+get {
+  url: {{base_url}}/estudiantes/{{estudiante1_id}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{estudiante_token}}
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+}

@@ -1,0 +1,23 @@
+meta {
+  name: Token revocado - 401
+  type: http
+  seq: 53
+}
+
+get {
+  url: {{base_url}}/me
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{nuevo_token}}
+}
+
+tests {
+  test("HTTP 401", () => expect(res.status).to.equal(401));
+}

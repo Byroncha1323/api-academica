@@ -1,0 +1,38 @@
+meta {
+  name: Crear estudiante como administrador
+  type: http
+  seq: 47
+}
+
+post {
+  url: {{base_url}}/estudiantes
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{admin_token}}
+}
+
+body:json {
+  {
+    "user_id": "{{nuevo_user_id}}",
+    "carrera_id": "{{carrera_id}}",
+    "sede_id": "{{sede_id}}",
+    "cedula": "{{nuevo_user_id}}",
+    "nombre": "Carlos",
+    "apellido": "Ejemplo",
+    "correo_institucional": "{{nuevo_email}}",
+    "activo": true
+  }
+}
+
+tests {
+  test("HTTP 201", () => expect(res.status).to.equal(201));
+  bru.setVar("creado_id", res.body.id);
+}

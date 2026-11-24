@@ -3,49 +3,49 @@
   ✓ that true is true
 
    PASS  Tests\Feature\AutorizacionEstudiantesTest
-  ✓ gates with data set #0                                               0.42s
-  ✓ gates with data set #1                                               0.09s
-  ✓ gates with data set #2                                               0.09s
-  ✓ gates with data set #3                                               0.07s
-  ✓ gates with data set #4                                               0.08s
-  ✓ gates with data set #5                                               0.08s
-  ✓ gates with data set #6                                               0.08s
-  ✓ gates with data set #7                                               0.08s
-  ✓ rutas protegidas requieren token                                     0.11s
-  ✓ registro no permite autoasignar privilegios                          0.15s
+  ✓ gates with data set #0                                               0.41s
+  ✓ gates with data set #1                                               0.07s
+  ✓ gates with data set #2                                               0.07s
+  ✓ gates with data set #3                                               0.09s
+  ✓ gates with data set #4                                               0.07s
+  ✓ gates with data set #5                                               0.09s
+  ✓ gates with data set #6                                               0.07s
+  ✓ gates with data set #7                                               0.07s
+  ✓ rutas protegidas requieren token                                     0.07s
+  ✓ registro no permite autoasignar privilegios                          0.08s
   ✓ login perfil y revocacion del token actual                           0.09s
-  ✓ validacion de registro y credenciales                                0.06s
-  ✓ consulta segun propiedad y carrera with data set #0                  0.07s
-  ✓ consulta segun propiedad y carrera with data set #1                  0.10s
-  ✓ consulta segun propiedad y carrera with data set #2                  0.09s
+  ✓ validacion de registro y credenciales                                0.08s
+  ✓ consulta segun propiedad y carrera with data set #0                  0.06s
+  ✓ consulta segun propiedad y carrera with data set #1                  0.08s
+  ✓ consulta segun propiedad y carrera with data set #2                  0.07s
   ✓ consulta segun propiedad y carrera with data set #3                  0.07s
-  ✓ consulta segun propiedad y carrera with data set #4                  0.06s
-  ✓ consulta segun propiedad y carrera with data set #5                  0.06s
-  ✓ consulta segun propiedad y carrera with data set #6                  0.06s
-  ✓ consulta segun propiedad y carrera with data set #7                  0.06s
-  ✓ consulta segun propiedad y carrera with data set #8                  0.06s
-  ✓ consulta segun propiedad y carrera with data set #9                  0.06s
-  ✓ estudiante no consulta registro inactivo ajeno de su carrera         0.06s
-  ✓ abac carrera y sede with data set #0                                 0.06s
-  ✓ abac carrera y sede with data set #1                                 0.06s
-  ✓ abac carrera y sede with data set #2                                 0.06s
-  ✓ abac carrera y sede with data set #3                                 0.06s
-  ✓ abac carrera y sede with data set #4                                 0.06s
-  ✓ abac carrera y sede with data set #5                                 0.06s
-  ✓ abac carrera y sede with data set #6                                 0.06s
-  ✓ abac carrera y sede with data set #7                                 0.06s
-  ✓ abac carrera y sede with data set #8                                 0.06s
-  ✓ abac carrera y sede with data set #9                                 0.06s
-  ✓ permiso editar y atributos no nulos son necesarios                   0.07s
-  ✓ crud administrador y validaciones                                    0.09s
-  ✓ rbac deniega creacion y eliminacion with data set #0                 0.06s
-  ✓ rbac deniega creacion y eliminacion with data set #1                 0.06s
-  ✓ rbac deniega creacion y eliminacion with data set #2                 0.06s
-  ✓ listado paginado para roles con permiso                              0.08s
-  ✓ seeders repetibles y permisos coordinador                            0.08s
+  ✓ consulta segun propiedad y carrera with data set #4                  0.07s
+  ✓ consulta segun propiedad y carrera with data set #5                  0.07s
+  ✓ consulta segun propiedad y carrera with data set #6                  0.08s
+  ✓ consulta segun propiedad y carrera with data set #7                  0.08s
+  ✓ consulta segun propiedad y carrera with data set #8                  0.09s
+  ✓ consulta segun propiedad y carrera with data set #9                  0.10s
+  ✓ estudiante no consulta registro inactivo ajeno de su carrera         0.10s
+  ✓ abac carrera y sede with data set #0                                 0.09s
+  ✓ abac carrera y sede with data set #1                                 0.09s
+  ✓ abac carrera y sede with data set #2                                 0.07s
+  ✓ abac carrera y sede with data set #3                                 0.07s
+  ✓ abac carrera y sede with data set #4                                 0.07s
+  ✓ abac carrera y sede with data set #5                                 0.07s
+  ✓ abac carrera y sede with data set #6                                 0.07s
+  ✓ abac carrera y sede with data set #7                                 0.07s
+  ✓ abac carrera y sede with data set #8                                 0.07s
+  ✓ abac carrera y sede with data set #9                                 0.07s
+  ✓ permiso editar y atributos no nulos son necesarios                   0.08s
+  ✓ crud administrador y validaciones                                    0.13s
+  ✓ rbac deniega creacion y eliminacion with data set #0                 0.08s
+  ✓ rbac deniega creacion y eliminacion with data set #1                 0.07s
+  ✓ rbac deniega creacion y eliminacion with data set #2                 0.07s
+  ✓ listado paginado para roles con permiso                              0.10s
+  ✓ seeders repetibles y permisos coordinador                            0.13s
 
    PASS  Tests\Feature\ExampleTest
-  ✓ the application returns a successful response                        0.03s
+  ✓ the application returns a successful response                        0.04s
 
   Tests:    42 passed (116 assertions)
-  Duration: 3.45s
+  Duration: 3.83s

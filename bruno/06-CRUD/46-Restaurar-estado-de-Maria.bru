@@ -1,0 +1,30 @@
+meta {
+  name: Restaurar estado de María
+  type: http
+  seq: 46
+}
+
+patch {
+  url: {{base_url}}/estudiantes/{{estudiante3_id}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{admin_token}}
+}
+
+body:json {
+  {
+    "activo": true
+  }
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+}

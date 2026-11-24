@@ -1,0 +1,23 @@
+meta {
+  name: Gate profesor con estudiante
+  type: http
+  seq: 16
+}
+
+get {
+  url: {{base_url}}/profesor/dashboard
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{estudiante_token}}
+}
+
+tests {
+  test("HTTP 403", () => expect(res.status).to.equal(403));
+}

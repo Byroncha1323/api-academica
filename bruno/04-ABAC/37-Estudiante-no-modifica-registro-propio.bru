@@ -1,0 +1,30 @@
+meta {
+  name: Estudiante no modifica registro propio
+  type: http
+  seq: 37
+}
+
+put {
+  url: {{base_url}}/estudiantes/{{estudiante1_id}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{estudiante_token}}
+}
+
+body:json {
+  {
+    "nombre": "No permitido"
+  }
+}
+
+tests {
+  test("HTTP 403", () => expect(res.status).to.equal(403));
+}

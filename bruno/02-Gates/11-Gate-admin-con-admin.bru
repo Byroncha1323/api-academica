@@ -1,0 +1,23 @@
+meta {
+  name: Gate admin con admin
+  type: http
+  seq: 11
+}
+
+get {
+  url: {{base_url}}/admin/dashboard
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{admin_token}}
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+}

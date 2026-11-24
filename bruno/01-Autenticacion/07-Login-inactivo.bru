@@ -1,0 +1,28 @@
+meta {
+  name: Login inactivo
+  type: http
+  seq: 7
+}
+
+post {
+  url: {{base_url}}/login
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "estudiante4@academica.test",
+    "password": "Password123!"
+  }
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+  bru.setVar("inactivo_token", res.body.token);
+}

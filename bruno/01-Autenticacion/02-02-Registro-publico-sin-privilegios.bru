@@ -1,0 +1,36 @@
+meta {
+  name: 02 - Registro público sin privilegios
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{base_url}}/register
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "name": "Carlos Ejemplo",
+    "email": "{{nuevo_email}}",
+    "password": "Password123!",
+    "password_confirmation": "Password123!",
+    "role": "administrador"
+  }
+}
+
+script:pre-request {
+  bru.setVar("nuevo_email", "carlos." + Date.now() + "@test.test");
+}
+
+tests {
+  test("HTTP 201", () => expect(res.status).to.equal(201));
+  bru.setVar("nuevo_user_id", res.body.user.id);
+  bru.setVar("nuevo_token", res.body.token);
+}

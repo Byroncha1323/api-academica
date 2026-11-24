@@ -1,0 +1,23 @@
+meta {
+  name: RBAC eliminar con profesor
+  type: http
+  seq: 39
+}
+
+delete {
+  url: {{base_url}}/estudiantes/{{estudiante1_id}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{profesor_token}}
+}
+
+tests {
+  test("HTTP 403", () => expect(res.status).to.equal(403));
+}

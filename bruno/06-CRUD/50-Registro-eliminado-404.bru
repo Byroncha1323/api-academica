@@ -1,0 +1,23 @@
+meta {
+  name: Registro eliminado - 404
+  type: http
+  seq: 50
+}
+
+get {
+  url: {{base_url}}/estudiantes/{{creado_id}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{admin_token}}
+}
+
+tests {
+  test("HTTP 404", () => expect(res.status).to.equal(404));
+}

@@ -1,0 +1,176 @@
+01-Autenticacion/01-01-Sin-token-401 (401 Unauthorized) - 30 ms
+Tests
+   ✓ HTTP 401
+01-Autenticacion/02-02-Registro-publico-sin-privilegios (201 Created) - 322 ms
+Tests
+   ✓ HTTP 201
+01-Autenticacion/03-Login-admin (200 OK) - 324 ms
+Tests
+   ✓ HTTP 200
+01-Autenticacion/04-Login-profesor (200 OK) - 312 ms
+Tests
+   ✓ HTTP 200
+01-Autenticacion/05-Login-estudiante (200 OK) - 311 ms
+Tests
+   ✓ HTTP 200
+01-Autenticacion/06-Login-coordinador (200 OK) - 307 ms
+Tests
+   ✓ HTTP 200
+01-Autenticacion/07-Login-inactivo (200 OK) - 299 ms
+Tests
+   ✓ HTTP 200
+01-Autenticacion/08-Perfil-con-carrera-sede-roles-y-permisos (200 OK) - 21 ms
+Tests
+   ✓ HTTP 200
+   ✓ Rol profesor
+01-Autenticacion/09-Permisos-coordinador (200 OK) - 25 ms
+Tests
+   ✓ HTTP 200
+   ✓ Rol coordinador
+01-Autenticacion/10-Listado-y-obtencion-de-IDs-reales (200 OK) - 28 ms
+Tests
+   ✓ HTTP 200
+02-Gates/11-Gate-admin-con-admin (200 OK) - 14 ms
+Tests
+   ✓ HTTP 200
+02-Gates/12-Gate-profesor-con-admin (403 Forbidden) - 13 ms
+Tests
+   ✓ HTTP 403
+02-Gates/13-Gate-admin-con-profesor (403 Forbidden) - 24 ms
+Tests
+   ✓ HTTP 403
+02-Gates/14-Gate-profesor-con-profesor (200 OK) - 15 ms
+Tests
+   ✓ HTTP 200
+02-Gates/15-Gate-admin-con-estudiante (403 Forbidden) - 23 ms
+Tests
+   ✓ HTTP 403
+02-Gates/16-Gate-profesor-con-estudiante (403 Forbidden) - 12 ms
+Tests
+   ✓ HTTP 403
+02-Gates/17-Gate-admin-con-coordinador (403 Forbidden) - 24 ms
+Tests
+   ✓ HTTP 403
+02-Gates/18-Gate-profesor-con-coordinador (403 Forbidden) - 23 ms
+Tests
+   ✓ HTTP 403
+03-Policies/19-Detalle-estudiante-1-con-admin (200 OK) - 52 ms
+Tests
+   ✓ HTTP 200
+03-Policies/20-Detalle-estudiante-1-con-estudiante (200 OK) - 20 ms
+Tests
+   ✓ HTTP 200
+03-Policies/21-Detalle-estudiante-2-con-estudiante (403 Forbidden) - 13 ms
+Tests
+   ✓ HTTP 403
+03-Policies/22-Detalle-estudiante-3-con-estudiante (403 Forbidden) - 13 ms
+Tests
+   ✓ HTTP 403
+03-Policies/23-Detalle-estudiante-4-con-estudiante (403 Forbidden) - 16 ms
+Tests
+   ✓ HTTP 403
+03-Policies/24-Detalle-estudiante-4-con-inactivo (200 OK) - 24 ms
+Tests
+   ✓ HTTP 200
+03-Policies/25-Detalle-estudiante-1-con-profesor (200 OK) - 27 ms
+Tests
+   ✓ HTTP 200
+03-Policies/26-Detalle-estudiante-2-con-profesor (403 Forbidden) - 13 ms
+Tests
+   ✓ HTTP 403
+03-Policies/27-Detalle-estudiante-1-con-coordinador (200 OK) - 21 ms
+Tests
+   ✓ HTTP 200
+03-Policies/28-Detalle-estudiante-2-con-coordinador (403 Forbidden) - 16 ms
+Tests
+   ✓ HTTP 403
+04-ABAC/29-ABAC-profesor-misma-carrera-y-sede (200 OK) - 15 ms
+Tests
+   ✓ HTTP 200
+04-ABAC/30-ABAC-profesor-misma-carrera-otra-sede (403 Forbidden) - 14 ms
+Tests
+   ✓ HTTP 403
+04-ABAC/31-ABAC-profesor-otra-carrera-misma-sede (403 Forbidden) - 13 ms
+Tests
+   ✓ HTTP 403
+04-ABAC/32-ABAC-profesor-otra-carrera-y-sede (403 Forbidden) - 13 ms
+Tests
+   ✓ HTTP 403
+04-ABAC/33-ABAC-coordinador-misma-carrera-y-sede (200 OK) - 27 ms
+Tests
+   ✓ HTTP 200
+04-ABAC/34-ABAC-coordinador-misma-carrera-otra-sede (403 Forbidden) - 14 ms
+Tests
+   ✓ HTTP 403
+04-ABAC/35-ABAC-coordinador-otra-carrera-misma-sede (403 Forbidden) - 13 ms
+Tests
+   ✓ HTTP 403
+04-ABAC/36-ABAC-coordinador-otra-carrera-y-sede (403 Forbidden) - 13 ms
+Tests
+   ✓ HTTP 403
+04-ABAC/37-Estudiante-no-modifica-registro-propio (403 Forbidden) - 23 ms
+Tests
+   ✓ HTTP 403
+05-RBAC/38-RBAC-crear-con-profesor (403 Forbidden) - 29 ms
+Tests
+   ✓ HTTP 403
+05-RBAC/39-RBAC-eliminar-con-profesor (403 Forbidden) - 13 ms
+Tests
+   ✓ HTTP 403
+05-RBAC/40-RBAC-crear-con-estudiante (403 Forbidden) - 12 ms
+Tests
+   ✓ HTTP 403
+05-RBAC/41-RBAC-eliminar-con-estudiante (403 Forbidden) - 30 ms
+Tests
+   ✓ HTTP 403
+05-RBAC/42-RBAC-crear-con-coordinador (403 Forbidden) - 32 ms
+Tests
+   ✓ HTTP 403
+05-RBAC/43-RBAC-eliminar-con-coordinador (403 Forbidden) - 13 ms
+Tests
+   ✓ HTTP 403
+06-CRUD/44-Inactivar-registro-ajeno-de-la-misma-carrera (200 OK) - 31 ms
+Tests
+   ✓ HTTP 200
+06-CRUD/45-Estudiante-no-ve-registro-inactivo-ajeno-de-su-carrera (403 Forbidden) - 13 ms
+Tests
+   ✓ HTTP 403
+06-CRUD/46-Restaurar-estado-de-Maria (200 OK) - 23 ms
+Tests
+   ✓ HTTP 200
+06-CRUD/47-Crear-estudiante-como-administrador (201 Created) - 24 ms
+Tests
+   ✓ HTTP 201
+06-CRUD/48-Modificar-estudiante-creado (200 OK) - 37 ms
+Tests
+   ✓ HTTP 200
+06-CRUD/49-Eliminar-estudiante-creado (200 OK) - 19 ms
+Tests
+   ✓ HTTP 200
+06-CRUD/50-Registro-eliminado-404 (404 Not Found) - 11 ms
+Tests
+   ✓ HTTP 404
+07-Sesion/51-Registro-sin-rol-no-recibe-permiso-de-creacion (403 Forbidden) - 23 ms
+Tests
+   ✓ HTTP 403
+07-Sesion/52-Cerrar-sesion (200 OK) - 17 ms
+Tests
+   ✓ HTTP 200
+07-Sesion/53-Token-revocado-401 (401 Unauthorized) - 15 ms
+Tests
+   ✓ HTTP 401
+
+📊 Execution Summary
+┌───────────────┬────────────────┐
+│ Metric        │     Result     │
+├───────────────┼────────────────┤
+│ Status        │     ✓ PASS     │
+├───────────────┼────────────────┤
+│ Requests      │ 53 (53 Passed) │
+├───────────────┼────────────────┤
+│ Tests         │     55/55      │
+├───────────────┼────────────────┤
+│ Assertions    │      0/0       │
+├───────────────┼────────────────┤
+│ Duration (ms) │      9143      │
+└───────────────┴────────────────┘

@@ -1,0 +1,23 @@
+meta {
+  name: Cerrar sesión
+  type: http
+  seq: 52
+}
+
+post {
+  url: {{base_url}}/logout
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{nuevo_token}}
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+}

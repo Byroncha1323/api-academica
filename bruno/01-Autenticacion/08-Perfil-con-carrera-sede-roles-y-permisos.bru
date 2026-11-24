@@ -1,0 +1,24 @@
+meta {
+  name: Perfil con carrera, sede, roles y permisos
+  type: http
+  seq: 8
+}
+
+get {
+  url: {{base_url}}/me
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{profesor_token}}
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+  test("Rol profesor", () => expect(res.body.user.roles[0].name).to.eql("profesor"));
+}

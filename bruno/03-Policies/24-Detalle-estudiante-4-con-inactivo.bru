@@ -1,0 +1,23 @@
+meta {
+  name: Detalle estudiante 4 con inactivo
+  type: http
+  seq: 24
+}
+
+get {
+  url: {{base_url}}/estudiantes/{{estudiante4_id}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{inactivo_token}}
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+}

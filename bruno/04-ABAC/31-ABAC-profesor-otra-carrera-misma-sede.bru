@@ -1,0 +1,30 @@
+meta {
+  name: ABAC profesor - otra carrera, misma sede
+  type: http
+  seq: 31
+}
+
+put {
+  url: {{base_url}}/estudiantes/{{estudiante4_id}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{profesor_token}}
+}
+
+body:json {
+  {
+    "nombre": "Ana María"
+  }
+}
+
+tests {
+  test("HTTP 403", () => expect(res.status).to.equal(403));
+}

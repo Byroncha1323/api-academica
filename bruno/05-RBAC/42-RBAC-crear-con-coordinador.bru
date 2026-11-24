@@ -1,0 +1,28 @@
+meta {
+  name: RBAC crear con coordinador
+  type: http
+  seq: 42
+}
+
+post {
+  url: {{base_url}}/estudiantes
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{coordinador_token}}
+}
+
+body:json {
+  {}
+}
+
+tests {
+  test("HTTP 403", () => expect(res.status).to.equal(403));
+}

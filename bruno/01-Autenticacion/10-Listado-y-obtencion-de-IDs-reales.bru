@@ -1,0 +1,25 @@
+meta {
+  name: Listado y obtención de IDs reales
+  type: http
+  seq: 10
+}
+
+get {
+  url: {{base_url}}/estudiantes
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{admin_token}}
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+  const rows = res.body.data;
+  for (let i = 1; i <= 4; i++) { const row = rows.find(r => r.usuario.email === `estudiante${i}@academica.test`); expect(row).to.exist; bru.setVar(`estudiante${i}_id`, row.id); if (i === 1) { bru.setVar("carrera_id", row.carrera_id); bru.setVar("sede_id", row.sede_id); } }
+}

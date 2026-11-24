@@ -1,0 +1,23 @@
+meta {
+  name: Detalle estudiante 2 con profesor
+  type: http
+  seq: 26
+}
+
+get {
+  url: {{base_url}}/estudiantes/{{estudiante2_id}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{profesor_token}}
+}
+
+tests {
+  test("HTTP 403", () => expect(res.status).to.equal(403));
+}

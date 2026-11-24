@@ -1,0 +1,30 @@
+meta {
+  name: Modificar estudiante creado
+  type: http
+  seq: 48
+}
+
+patch {
+  url: {{base_url}}/estudiantes/{{creado_id}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{admin_token}}
+}
+
+body:json {
+  {
+    "nombre": "Carlos Modificado"
+  }
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+}

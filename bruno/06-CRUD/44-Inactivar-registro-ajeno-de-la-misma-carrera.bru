@@ -1,0 +1,30 @@
+meta {
+  name: Inactivar registro ajeno de la misma carrera
+  type: http
+  seq: 44
+}
+
+patch {
+  url: {{base_url}}/estudiantes/{{estudiante3_id}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{admin_token}}
+}
+
+body:json {
+  {
+    "activo": false
+  }
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+}

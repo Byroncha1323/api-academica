@@ -1,0 +1,23 @@
+meta {
+  name: Detalle estudiante 2 con coordinador
+  type: http
+  seq: 28
+}
+
+get {
+  url: {{base_url}}/estudiantes/{{estudiante2_id}}
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{coordinador_token}}
+}
+
+tests {
+  test("HTTP 403", () => expect(res.status).to.equal(403));
+}

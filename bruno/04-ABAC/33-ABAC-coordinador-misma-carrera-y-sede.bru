@@ -1,0 +1,30 @@
+meta {
+  name: ABAC coordinador - misma carrera y sede
+  type: http
+  seq: 33
+}
+
+put {
+  url: {{base_url}}/estudiantes/{{estudiante1_id}}
+  body: json
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+auth:bearer {
+  token: {{coordinador_token}}
+}
+
+body:json {
+  {
+    "nombre": "Ana María"
+  }
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+}

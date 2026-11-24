@@ -1,0 +1,28 @@
+meta {
+  name: Login admin
+  type: http
+  seq: 3
+}
+
+post {
+  url: {{base_url}}/login
+  body: json
+  auth: none
+}
+
+headers {
+  Accept: application/json
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "email": "admin@academica.test",
+    "password": "Password123!"
+  }
+}
+
+tests {
+  test("HTTP 200", () => expect(res.status).to.equal(200));
+  bru.setVar("admin_token", res.body.token);
+}

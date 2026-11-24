@@ -1,0 +1,23 @@
+meta {
+  name: Gate admin con profesor
+  type: http
+  seq: 13
+}
+
+get {
+  url: {{base_url}}/admin/dashboard
+  body: none
+  auth: bearer
+}
+
+headers {
+  Accept: application/json
+}
+
+auth:bearer {
+  token: {{profesor_token}}
+}
+
+tests {
+  test("HTTP 403", () => expect(res.status).to.equal(403));
+}

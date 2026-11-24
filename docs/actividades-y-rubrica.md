@@ -12,7 +12,7 @@ Documento de apoyo para la entrega del taller de mecanismos de autorización en 
 | Policies | 20% | CRUD y Policy parciales; se impedía consultar el propio registro inactivo | Policy utilizada en las cinco acciones; propiedad sin acceso a registros ajenos; pruebas de activos/inactivos, CRUD, validación e identidad propietaria |
 | RBAC con Spatie | 15% | Trait, configuración y migración existentes; sin roles ni permisos sembrados | `RolesYPermisosSeeder`, cuatro permisos y cuatro roles; middleware de creación; pruebas de permisos y denegaciones |
 | ABAC | 15% | Carrera y sede presentes en modelos, migraciones y Policy; sin datos ni pruebas | Fixtures de cuatro combinaciones; actualización limitada por permiso, carrera y sede para profesor/coordinador; pruebas por HTTP y Feature |
-| Postman y pruebas automatizadas | 10% | Únicamente las pruebas predeterminadas; ninguna colección real | Colección de 53 solicitudes y suite `AutorizacionEstudiantesTest`; evidencias en `docs/evidencias/` |
+| Bruno y pruebas automatizadas | 10% | Únicamente las pruebas predeterminadas; ninguna colección real | Colección de 53 solicitudes y suite `AutorizacionEstudiantesTest`; evidencias en `docs/evidencias/` |
 | Reflexión y explicación técnica | 5% | README anunciaba documentos inexistentes | Respuestas de actividades, explicación de decisiones y guía de uso en README |
 
 Esta matriz vincula los criterios con código y pruebas; no asigna una nota, que corresponde a la evaluación docente.
@@ -34,7 +34,7 @@ Las rutas de `routes/api.php` ejecutan `Gate::authorize` dentro de `auth:sanctum
 | Coordinador ITI | 403 | 403 |
 | Sin token | 401 | 401 |
 
-Evidencia: casos `test_gates`, `test_rutas_protegidas_requieren_token` y solicitudes Gate de Postman.
+Evidencia: casos `test_gates`, `test_rutas_protegidas_requieren_token` y solicitudes Gate de Bruno.
 
 ## Actividad 2 — Policies
 
@@ -84,7 +84,7 @@ Profesor/coordinador ITI en San Carlos:
 | Pedro | ISW | SC | Diferente carrera y misma sede | 403 |
 | Luis | ISW | CEN | Diferente carrera y diferente sede | 403 |
 
-Evidencia: `test_abac_carrera_y_sede` verifica ambas funciones profesionales y las cuatro combinaciones. También comprueba persistencia después del intento. `test_permiso_editar_y_atributos_no_nulos_son_necesarios` demuestra que los atributos por sí solos no conceden acceso. Las solicitudes ABAC de Postman prueban las cuatro combinaciones con ambos roles.
+Evidencia: `test_abac_carrera_y_sede` verifica ambas funciones profesionales y las cuatro combinaciones. También comprueba persistencia después del intento. `test_permiso_editar_y_atributos_no_nulos_son_necesarios` demuestra que los atributos por sí solos no conceden acceso. Las solicitudes ABAC de Bruno prueban las cuatro combinaciones con ambos roles.
 
 ## Discusión del apartado 19.2
 
@@ -101,7 +101,7 @@ Evidencia: `test_abac_carrera_y_sede` verifica ambas funciones profesionales y l
 4. **RBAC y ABAC.** RBAC concede capacidades mediante roles y permisos. ABAC evalúa atributos del usuario, del recurso o del contexto. Aquí el permiso de editar se combina con carrera y sede.
 5. **Límite de `estudiantes.editar`.** El permiso habilita el tipo de operación; no define cuáles estudiantes pertenecen al ámbito del profesor. Dar acceso general permitiría modificar estudiantes de otras carreras o sedes.
 6. **Rol en el registro público.** Si el backend confiara en un rol enviado por el cliente, una persona podría autoasignarse `administrador`. El controlador crea el usuario únicamente con nombre, correo y contraseña; ignora rol, permisos, carrera y sede enviados como campos adicionales.
-7. **Autorización en backend.** Una persona puede cambiar el cliente o enviar solicitudes directamente con Postman. Ocultar botones no impide llamar a una ruta. El servidor verifica token, permisos y atributos antes de leer o modificar el recurso.
+7. **Autorización en backend.** Una persona puede cambiar el cliente o enviar solicitudes directamente con Bruno. Ocultar botones no impide llamar a una ruta. El servidor verifica token, permisos y atributos antes de leer o modificar el recurso.
 8. **HTTP 401 y 403.** `401` indica que falta una autenticación válida, por ejemplo un token ausente, inválido o revocado. `403` indica que el usuario autenticado no tiene autorización para esa operación. Además, el contrato del taller devuelve `422` para credenciales incorrectas mediante `ValidationException`, errores de validación también `422`, y recurso inexistente `404`.
 
 ## Aclaraciones del documento aplicadas
@@ -116,7 +116,7 @@ Evidencia: `test_abac_carrera_y_sede` verifica ambas funciones profesionales y l
 1. Proyecto Laravel 13: código fuente y dependencias fijadas en `composer.lock`.
 2. Modelos, migraciones, controladores, Gates y Policies: directorios `app/`, `database/migrations/` y `routes/`.
 3. Roles, permisos y datos: `database/seeders/` con llamadas en `DatabaseSeeder`.
-4. Colección: `postman/API-Academica.postman_collection.json`.
+4. Colección: `bruno/`.
 5. Evidencias: [informe y resultados de ejecución](evidencias/).
 6. Pruebas Feature: `tests/Feature/AutorizacionEstudiantesTest.php`.
 7. Reflexión: este documento.
