@@ -10,6 +10,7 @@ Al abrir `http://127.0.0.1:8001` en el navegador se muestra la bienvenida de Lar
 - **Ya está instalado:** sigue [Iniciar la API](#2-iniciar-la-api) y [Comprobar todo](#3-comprobar-todo-desde-la-terminal).
 - **Prefieres Bruno:** sigue [Probar con Bruno](#4-probar-con-bruno-opcional).
 - **Aparece un error:** consulta [Problemas frecuentes](#problemas-frecuentes).
+- **Quieres entender el código:** abre la [documentación del código](docs/codigo.md), con el recorrido de las solicitudes y la explicación de cada archivo.
 - **Quieres revisar la entrega:** abre las [actividades y rúbrica](docs/actividades-y-rubrica.md) y las [evidencias](docs/evidencias/).
 
 ## 1. Instalación (solo la primera vez)
@@ -241,6 +242,7 @@ El alta de estudiantes requiere `user_id`, `carrera_id`, `sede_id`, `cedula`, `n
 | `database/seeders/` | Roles, permisos y datos del laboratorio |
 | `tests/Feature/` | Pruebas de integración y autorización |
 | `bruno/` | Colección para probar la API |
+| [docs/codigo.md](docs/codigo.md) | Recorrido de solicitudes y explicación de clases, métodos y configuración |
 | [docs/actividades-y-rubrica.md](docs/actividades-y-rubrica.md) | Actividades, reflexión y revisión de requisitos |
 | [docs/evidencias/](docs/evidencias/) | Informe de verificación y resultados de ejecución |
 

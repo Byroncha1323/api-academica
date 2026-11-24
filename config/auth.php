@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Guards y proveedor de usuarios. La cuenta autenticable es App\Models\User.
+ * El guard web también da nombre al ámbito de roles/permisos que crea Spatie.
+ */
+
 use App\Models\User;
 
 return [

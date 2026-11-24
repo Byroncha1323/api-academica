@@ -47,3 +47,5 @@ npx --yes @usebruno/cli@4.3.0 run --env Local -r --env-var "base_url=http://127.
 ```
 
 Consulta la [guía completa del proyecto](../README.md) y el [reporte de ejecución](../docs/evidencias/bruno-cli.txt).
+
+Cada solicitud incluye documentación en su bloque `docs`, visible desde la aplicación Bruno. Para seguir las decisiones de autorización del servidor, consulta la [documentación del código](../docs/codigo.md).

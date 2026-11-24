@@ -21,3 +21,11 @@ auth:bearer {
 tests {
   test("HTTP 200", () => expect(res.status).to.equal(200));
 }
+
+docs {
+  Gate profesor con profesor
+
+  Envía GET {{base_url}}/profesor/dashboard.
+  El test espera HTTP 200; una denegación esperada también constituye una prueba aprobada.
+  Utiliza el token obtenido en una solicitud anterior. Ejecutar la colección completa en orden.
+}

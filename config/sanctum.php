@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Opciones del paquete Sanctum: guards, expiración y soporte de sesiones/cookies.
+ * El laboratorio consume tokens Bearer, no un flujo de inicio de sesión de una SPA.
+ */
+
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Illuminate\Foundation\Http\Middleware\ValidateCsrfToken;
 use Laravel\Sanctum\Http\Middleware\AuthenticateSession;

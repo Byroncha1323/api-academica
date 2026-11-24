@@ -1,3 +1,4 @@
+/* Estilos y fuentes de la bienvenida de Laravel; no implementan reglas de acceso. */
 @import 'tailwindcss';
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';

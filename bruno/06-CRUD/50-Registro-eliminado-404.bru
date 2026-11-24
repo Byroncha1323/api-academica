@@ -21,3 +21,11 @@ auth:bearer {
 tests {
   test("HTTP 404", () => expect(res.status).to.equal(404));
 }
+
+docs {
+  Registro eliminado - 404
+
+  Envía GET {{base_url}}/estudiantes/{{creado_id}}.
+  El test espera HTTP 404; una denegación esperada también constituye una prueba aprobada.
+  Utiliza el token obtenido en una solicitud anterior. Ejecutar la colección completa en orden.
+}

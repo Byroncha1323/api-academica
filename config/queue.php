@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Conexiones de colas del framework; los endpoints académicos trabajan sin jobs propios.
+ */
+
 return [
 
     /*

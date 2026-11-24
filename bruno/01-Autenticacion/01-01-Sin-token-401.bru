@@ -17,3 +17,11 @@ headers {
 tests {
   test("HTTP 401", () => expect(res.status).to.equal(401));
 }
+
+docs {
+  01 - Sin token - 401
+
+  Envía GET {{base_url}}/estudiantes.
+  El test espera HTTP 401; una denegación esperada también constituye una prueba aprobada.
+  Solicitud sin token Bearer: prueba autenticación pública o la denegación de acceso anónimo.
+}

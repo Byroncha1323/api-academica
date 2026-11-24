@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Opciones globales de la aplicación y clave de cifrado leídas desde el entorno.
+ */
+
 return [
 
     /*

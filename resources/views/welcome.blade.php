@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{{-- Bienvenida del esqueleto Laravel. La API y sus dashboards devuelven JSON desde routes/api.php. --}}
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
         <meta charset="utf-8">

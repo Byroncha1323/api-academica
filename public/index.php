@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Punto de entrada HTTP: respeta mantenimiento, carga Composer e inicia Laravel.
+ */
+
 use Illuminate\Foundation\Application;
 use Illuminate\Http\Request;
 

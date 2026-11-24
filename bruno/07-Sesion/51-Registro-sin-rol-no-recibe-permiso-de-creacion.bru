@@ -26,3 +26,12 @@ body:json {
 tests {
   test("HTTP 403", () => expect(res.status).to.equal(403));
 }
+
+docs {
+  Registro sin rol no recibe permiso de creación
+
+  Envía POST {{base_url}}/estudiantes.
+  El test espera HTTP 403; una denegación esperada también constituye una prueba aprobada.
+  Utiliza el token obtenido en una solicitud anterior. Ejecutar la colección completa en orden.
+  El bloque body:json define los datos enviados; los marcadores entre llaves se resuelven durante la ejecución.
+}

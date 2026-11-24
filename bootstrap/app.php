@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Arranque de Laravel: carga las rutas y registra alias de middleware.
+ * Las rutas de api.php reciben el prefijo /api; auth:sanctum se declara en ese archivo.
+ */
+
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -15,6 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // La ruta de creación usa permission; los otros alias quedan disponibles.
         $middleware->alias([
             'permission' => PermissionMiddleware::class,
             'role' => RoleMiddleware::class,

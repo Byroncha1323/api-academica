@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Contrato HTTP de la API académica. register/login son públicos; el resto
+ * requiere identidad Sanctum y después aplica el Gate, middleware o Policy correspondiente.
+ */
+
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EstudianteController;
 use Illuminate\Http\Request;
@@ -32,8 +37,10 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::get('/estudiantes', [EstudianteController::class, 'index']);
+    // RBAC por endpoint; la Policy también autoriza dentro del controlador.
     Route::post('/estudiantes', [EstudianteController::class, 'store'])
         ->middleware('permission:estudiantes.crear');
+    // El parámetro activa el enlace de modelos de Laravel y el 404 si no existe.
     Route::get('/estudiantes/{estudiante}', [EstudianteController::class, 'show']);
     Route::put('/estudiantes/{estudiante}', [EstudianteController::class, 'update']);
     Route::patch('/estudiantes/{estudiante}', [EstudianteController::class, 'update']);

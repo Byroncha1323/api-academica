@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Comandos de consola del esqueleto Laravel; inspire no interviene en la API académica.
+ */
+
 use Illuminate\Foundation\Inspiring;
 use Illuminate\Support\Facades\Artisan;
 

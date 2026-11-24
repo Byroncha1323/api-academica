@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Modelos, tablas, guard y caché de Spatie Permission. HasRoles y el middleware
+ * consultan estos valores para resolver permisos y sus asignaciones.
+ */
+
 use Spatie\Permission\DefaultTeamResolver;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;

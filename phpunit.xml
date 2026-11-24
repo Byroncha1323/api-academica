@@ -17,6 +17,7 @@
             <directory>app</directory>
         </include>
     </source>
+    <!-- Aislamiento del laboratorio: SQLite en memoria, caché en array y sin colas externas. -->
     <php>
         <env name="APP_ENV" value="testing"/>
         <env name="APP_MAINTENANCE_DRIVER" value="file"/>

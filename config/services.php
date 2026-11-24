@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Credenciales de servicios externos del esqueleto; la API del taller no los utiliza.
+ */
+
 return [
 
     /*

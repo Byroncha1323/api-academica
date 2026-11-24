@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Conexiones y migraciones. .env.example selecciona SQLite para el laboratorio;
+ * phpunit.xml selecciona otra base SQLite en memoria para las pruebas.
+ */
+
 use Illuminate\Support\Str;
 use Pdo\Mysql;
 

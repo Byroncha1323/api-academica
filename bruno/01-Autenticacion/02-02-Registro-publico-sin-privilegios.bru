@@ -34,3 +34,13 @@ tests {
   bru.setVar("nuevo_user_id", res.body.user.id);
   bru.setVar("nuevo_token", res.body.token);
 }
+
+docs {
+  02 - Registro público sin privilegios
+
+  Envía POST {{base_url}}/register.
+  El test espera HTTP 201; una denegación esperada también constituye una prueba aprobada.
+  Solicitud sin token Bearer: prueba autenticación pública o la denegación de acceso anónimo.
+  Los scripts guardan datos de respuesta o entrada en variables temporales para las siguientes solicitudes; no se persisten tokens en el entorno.
+  El bloque body:json define los datos enviados; los marcadores entre llaves se resuelven durante la ejecución.
+}

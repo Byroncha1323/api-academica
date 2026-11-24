@@ -21,3 +21,11 @@ auth:bearer {
 tests {
   test("HTTP 401", () => expect(res.status).to.equal(401));
 }
+
+docs {
+  Token revocado - 401
+
+  Envía GET {{base_url}}/me.
+  El test espera HTTP 401; una denegación esperada también constituye una prueba aprobada.
+  Utiliza el token obtenido en una solicitud anterior. Ejecutar la colección completa en orden.
+}

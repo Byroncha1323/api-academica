@@ -9,10 +9,20 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
+/**
+ * Datos locales para demostrar propiedad y las cuatro combinaciones de carrera/sede.
+ * Las contraseñas son de laboratorio y firstOrCreate conserva las cuentas existentes.
+ */
 class DatosPruebaSeeder extends Seeder
 {
+    /**
+     * Carga sedes, carreras, cuentas y registros académicos en orden de dependencia.
+     * Utiliza IDs de los modelos creados, evitando suponer números de claves foráneas.
+     * Repetir el seeder no reinicia las contraseñas ni los datos de cuentas existentes.
+     */
     public function run(): void
     {
+        // Las sedes y carreras deben existir antes de asignarlas a usuarios y estudiantes.
         $sanCarlos = Sede::firstOrCreate(['codigo' => 'SC'], ['nombre' => 'San Carlos']);
         $central = Sede::firstOrCreate(['codigo' => 'CEN'], ['nombre' => 'Central']);
 
@@ -58,6 +68,7 @@ class DatosPruebaSeeder extends Seeder
         );
         $profesorISW->syncRoles(['profesor']);
 
+        // Ana y Luis cubren la propiedad y los casos de carreras diferentes.
         $usuarioEstudiante1 = User::firstOrCreate(
             ['email' => 'estudiante1@academica.test'],
             [
@@ -112,6 +123,8 @@ class DatosPruebaSeeder extends Seeder
         ]);
         $coordinador->syncRoles(['coordinador']);
 
+        // María: ITI/Central activa; Pedro: ISW/San Carlos inactivo.
+        // Con Ana y Luis completan las cuatro combinaciones ABAC del profesor ITI/SC.
         foreach ([
             [3, 'María', $sistemas, $central, true],
             [4, 'Pedro', $software, $sanCarlos, false],

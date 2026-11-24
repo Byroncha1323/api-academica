@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Almacenes de caché; el entorno local utiliza database. Spatie cachea permisos
+ * y los seeders invalidan esa caché al cambiar las asignaciones.
+ */
+
 use Illuminate\Support\Str;
 
 return [

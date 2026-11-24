@@ -36,3 +36,13 @@ tests {
   test("HTTP 201", () => expect(res.status).to.equal(201));
   bru.setVar("creado_id", res.body.id);
 }
+
+docs {
+  Crear estudiante como administrador
+
+  Envía POST {{base_url}}/estudiantes.
+  El test espera HTTP 201; una denegación esperada también constituye una prueba aprobada.
+  Utiliza el token obtenido en una solicitud anterior. Ejecutar la colección completa en orden.
+  Los scripts guardan datos de respuesta o entrada en variables temporales para las siguientes solicitudes; no se persisten tokens en el entorno.
+  El bloque body:json define los datos enviados; los marcadores entre llaves se resuelven durante la ejecución.
+}

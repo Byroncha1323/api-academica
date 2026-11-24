@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Tablas de colas del esqueleto; el taller no añade trabajos en segundo plano.
+ */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -7,7 +11,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Crea trabajos, lotes y registro de trabajos fallidos.
      */
     public function up(): void
     {
@@ -46,7 +50,8 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Revierte los cambios de esta migración al ejecutar un rollback.
+     * La reversión elimina las tablas o columnas definidas, junto con sus datos.
      */
     public function down(): void
     {

@@ -8,17 +8,19 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 /**
+ * Genera cuentas aisladas para los tests sin asignar roles académicos.
+ *
  * @extends Factory<User>
  */
 class UserFactory extends Factory
 {
     /**
-     * The current password being used by the factory.
+     * Hash reutilizado para evitar calcular la contraseña de prueba en cada cuenta.
      */
     protected static ?string $password;
 
     /**
-     * Define the model's default state.
+     * Datos predeterminados con correo único y contraseña de prueba con hash.
      *
      * @return array<string, mixed>
      */
@@ -34,7 +36,7 @@ class UserFactory extends Factory
     }
 
     /**
-     * Indicate that the model's email address should be unverified.
+     * Estado alternativo de una cuenta cuyo correo todavía no fue verificado.
      */
     public function unverified(): static
     {

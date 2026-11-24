@@ -28,3 +28,12 @@ body:json {
 tests {
   test("HTTP 403", () => expect(res.status).to.equal(403));
 }
+
+docs {
+  ABAC coordinador - otra carrera, misma sede
+
+  Envía PUT {{base_url}}/estudiantes/{{estudiante4_id}}.
+  El test espera HTTP 403; una denegación esperada también constituye una prueba aprobada.
+  Utiliza el token obtenido en una solicitud anterior. Ejecutar la colección completa en orden.
+  El bloque body:json define los datos enviados; los marcadores entre llaves se resuelven durante la ejecución.
+}

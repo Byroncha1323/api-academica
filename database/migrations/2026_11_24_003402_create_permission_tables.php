@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Esquema publicado por Spatie para roles, permisos y sus tablas de asignación.
+ */
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -7,7 +11,7 @@ use Illuminate\Support\Facades\Schema;
 return new class extends Migration
 {
     /**
-     * Run the migrations.
+     * Crea permisos, roles y pivotes según config/permission.php; invalida su caché.
      */
     public function up(): void
     {
@@ -120,7 +124,8 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Revierte los cambios de esta migración al ejecutar un rollback.
+     * La reversión elimina las tablas o columnas definidas, junto con sus datos.
      */
     public function down(): void
     {

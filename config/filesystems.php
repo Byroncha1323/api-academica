@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Discos de almacenamiento del esqueleto Laravel; el CRUD no sube archivos.
+ */
+
 return [
 
     /*

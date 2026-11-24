@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Canales de registro de errores y eventos; se configuran mediante variables del entorno.
+ */
+
 use Monolog\Handler\NullHandler;
 use Monolog\Handler\StreamHandler;
 use Monolog\Handler\SyslogUdpHandler;

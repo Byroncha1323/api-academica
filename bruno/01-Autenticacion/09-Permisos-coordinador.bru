@@ -22,3 +22,11 @@ tests {
   test("HTTP 200", () => expect(res.status).to.equal(200));
   test("Rol coordinador", () => expect(res.body.user.roles[0].name).to.eql("coordinador"));
 }
+
+docs {
+  Permisos coordinador
+
+  Envía GET {{base_url}}/me.
+  El test espera HTTP 200; una denegación esperada también constituye una prueba aprobada.
+  Utiliza el token obtenido en una solicitud anterior. Ejecutar la colección completa en orden.
+}

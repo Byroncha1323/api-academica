@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Sesiones del framework. El cliente del taller utiliza tokens personales para /api.
+ */
+
 use Illuminate\Support\Str;
 
 return [

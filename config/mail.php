@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Transportes de correo disponibles; el taller no implementa envío de correos.
+ */
+
 return [
 
     /*
